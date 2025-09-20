@@ -1,11 +1,11 @@
 import re
 
 
-def checkPassword(username, password):
+import re
 
+def password_policy_check(username: str, password: str) -> bool:
     if len(password) < 10:
         return False
-
     if not re.search(r"\d", password):
         return False
     if not re.search(r"[a-z]", password):
@@ -16,12 +16,8 @@ def checkPassword(username, password):
         return False
     if username.lower() in password.lower():
         return False
-    username = username.lower()
-    password_lower = password.lower()
-
     for i in range(len(username) - 3):
-        for j in range(i + 4, len(username) + 1):
-            substring = username[i:j]
-            if substring in password_lower:
-                return False
+        sub = username[i:i+4]
+        if sub.lower() in password.lower():
+            return False
     return True
